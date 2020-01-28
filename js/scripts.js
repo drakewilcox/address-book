@@ -49,7 +49,7 @@ function Contact(firstName, lastName, phoneNumber, addresses) {
 function Address(email, homeAddress , workAddress) {
   this.email = email,
   this.homeAddress = homeAddress,
-  this.workAddress = workAddress
+  this.workAddress = workAddress;
 
 }
 
@@ -77,8 +77,9 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  $(".email").html(contact.email);
-  $(".address").html(contact.address);
+  $(".email").html(contact.addresses.email);
+  $(".home-address").html(contact.addresses.homeAddress);
+  $(".work-address").html(contact.addresses.workAddress);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
