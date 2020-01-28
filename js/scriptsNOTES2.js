@@ -1,3 +1,4 @@
+  
 // Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = [],
@@ -38,22 +39,11 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber, addresses) {
+function Contact(firstName, lastName, phoneNumber) {
   this.firstName = firstName,
   this.lastName = lastName,
-  this.phoneNumber = phoneNumber,
-  
-  this.addresses = addresses;
+  this.phoneNumber = phoneNumber
 }
-
-function Address(email, homeAddress , workAddress) {
-  this.email = email,
-  this.homeAddress = homeAddress,
-  this.workAddress = workAddress
-
-}
-
-// Business Logic for Addresses
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
@@ -70,24 +60,25 @@ function displayContactDetails(addressBookToDisplay) {
   });
   contactsList.html(htmlForContactInfo);
 };
-console.log(AddressBook)
+
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
-  $(".phone-number").html(contact.phoneNumber);
-  $(".email").html(contact.email);
-  $(".address").html(contact.address);
+  $(".phone-number").html(contact.address);
   var buttons = $("#buttons");
   buttons.empty();
-  buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
+  buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
 }
 
 function attachContactListeners() {
   $("ul#contacts").on("click", "li", function() {
     showContact(this.id);
   });
+  // ^^This is calling the jQuery on() method upon the parent element that the event listener is attached to. 
+  // First list the kind of event we are listening for. 
+  // Second, is the child element that should trigger.
   $("#buttons").on("click", ".deleteButton", function() {
     addressBook.deleteContact(this.id);
     $("#show-contact").hide();
@@ -102,22 +93,10 @@ $(document).ready(function() {
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
-    var inputtedEmail = $("input#new-email").val();
-    var inputtedHomeAddress = $("input#new-home-address").val();
-    var inputtedWorkAddress = $("input#new-work-address").val();
-    var inputtedAddresses = new Address(inputtedEmail, inputtedHomeAddress, inputtedWorkAddress)
-
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
-    
-    $("input#new-email").val("");
-    $("input#new-home-address").val("");
-    $("input#new-work-address").val("");
-
-
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedAddresses);
-
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   })
